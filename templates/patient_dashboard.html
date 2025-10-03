@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Dashboard</title>
+</head>
+<body>
+    <h2>Patient Dashboard</h2>
+    <h3>Book Appointment</h3>
+    <form method="post">
+        Select Doctor:
+        <select name="doc_id">
+            {% for d in docs %}
+            <option value="{{ d.id }}">{{ d.name }} ({{ d.specialization }})</option>
+            {% endfor %}
+        </select>
+        Date: <input type="date" name="date">
+        <button type="submit">Book</button>
+    </form>
+    <h3>Your Appointments</h3>
+    <table border>
+        <tr><th>Doctor</th><th>Date</th><th>Status</th></tr>
+        {% for ap in apps %}
+        <tr>
+            <td>{{ ap.name }}</td>
+            <td>{{ ap.date }}</td>
+            <td>{{ ap.status }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/logout">Logout</a>
+</body>
+</html>
