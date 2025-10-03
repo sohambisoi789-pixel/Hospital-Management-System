@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h2>Admin Dashboard</h2>
+    <form method="get" action="/admin">
+        <input type="text" name="doc_search" placeholder="Search doctors by name/spec" value="{{ doc_search }}">
+        <button type="submit">Search Doctor</button>
+    </form>
+    <form method="get" action="/admin">
+        <input type="text" name="pat_search" placeholder="Search patients by name" value="{{ pat_search }}">
+        <button type="submit">Search Patient</button>
+    </form>
+    <h3>Add Doctor</h3>
+    <form method="post">
+        Name: <input name="name">
+        Specialization: <input name="spec">
+        <button type="submit">Add Doctor</button>
+    </form>
+    <h3>Doctors</h3>
+    <table border>
+        <tr><th>ID</th><th>Name</th><th>Specialization</th><th>Availability</th><th>Actions</th></tr>
+        {% for d in docs %}
+        <tr>
+            <td>{{ d.id }}</td>
+            <td>{{ d.name }}</td>
+            <td>{{ d.specialization }}</td>
+            <td>{{ d.availability }}</td>
+            <td>
+                <a href="/admin/edit_doctor/{{ d.id }}">Edit</a> |
+                <a href="/admin/delete_doctor/{{ d.id }}" onclick="return confirm('Delete doctor?');">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <h3>Patients</h3>
+    <table border>
+        <tr><th>ID</th><th>Username</th></tr>
+        {% for p in pats %}
+        <tr>
+            <td>{{ p.id }}</td>
+            <td>{{ p.username }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <h3>Appointments</h3>
+    <table border>
+        <tr><th>ID</th><th>Patient</th><th>Doctor</th><th>Date</th><th>Status</th><th>Actions</th></tr>
+        {% for ap in apps %}
+        <tr>
+            <td>{{ ap.id }}</td>
+            <td>{{ ap.patient }}</td>
+            <td>{{ ap.doctor }}</td>
+            <td>{{ ap.date }}</td>
+            <td>{{ ap.status }}</td>
+            <td>
+                <form method="post" action="/admin/update_appointment/{{ ap.id }}" style="display:inline;">
+                    <select name="status">
+                        <option value="Booked" {% if ap.status=='Booked' %}selected{% endif %}>Booked</option>
+                        <option value="Completed" {% if ap.status=='Completed' %}selected{% endif %}>Completed</option>
+                        <option value="Cancelled" {% if ap.status=='Cancelled' %}selected{% endif %}>Cancelled</option>
+                    </select>
+                    <button type="submit">Update</button>
+                </form>
+                <a href="/admin/delete_appointment/{{ ap.id }}" onclick="return confirm('Delete appointment?');">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/logout">Logout</a>
+</body>
+</html>
