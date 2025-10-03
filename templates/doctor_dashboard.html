@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doctor Dashboard</title>
+</head>
+<body>
+    <h2>Doctor Dashboard</h2>
+    <h3>Upcoming Appointments</h3>
+    <table border>
+        <tr><th>ID</th><th>Patient</th><th>Date</th><th>Status</th><th>Action</th></tr>
+        {% for ap in apps %}
+        <tr>
+            <td>{{ ap.id }}</td>
+            <td>{{ ap.username }}</td>
+            <td>{{ ap.date }}</td>
+            <td>{{ ap.status }}</td>
+            <td>
+                {% if ap.status == 'Booked' %}
+                <a href="/doctor/done/{{ ap.id }}">Mark Completed</a>
+                {% else %}
+                -
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/logout">Logout</a>
+</body>
+</html>
