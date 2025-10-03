@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h2>Welcome to the Admin Dashboard</h2>
+    
+    <!-- Add Doctor Section -->
+    <h3>Add Doctor</h3>
+    <form method="post">
+        Name: <input type="text" name="name"><br>
+        Specialization: <input type="text" name="spec"><br>
+        Username: <input type="text" name="doc_user"><br>
+        Password: <input type="password" name="doc_pass"><br>
+        <button type="submit">Add Doctor</button>
+    </form>
+    {% if err %}
+        <p style="color:red;">{{ err }}</p>
+    {% endif %}
+    <a href="/admin">Back to Dashboard</a>
+
+    <!-- Doctor Credentials Section -->
+    <h3>Doctor Credentials</h3>
+    <table border>
+        <tr><th>ID</th><th>Name</th><th>Username</th><th>Password (hashed)</th></tr>
+        {% for dc in doc_creds %}
+        <tr>
+            <td>{{ dc.id }}</td>
+            <td>{{ dc.name }}</td>
+            <td>{{ dc.username }}</td>
+            <td>{{ dc.password }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/admin/add_doctor">Add Doctor</a>
+</body>
+</html>
