@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+</head>
+<body>
+    <h2>Register as Patient</h2>
+    <form method="post">
+        Username: <input type="text" name="u"><br>
+        Password: <input type="password" name="p"><br>
+        <button type="submit">Register</button>
+    </form>
+    {% if err %}
+        <p style="color:red;">{{ err }}</p>
+    {% endif %}
+    <a href="/login">Back to Login</a>
+</body>
+</html>
