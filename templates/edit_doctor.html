@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Doctor</title>
+</head>
+<body>
+    <h2>Edit Doctor Profile</h2>
+    <form method="post">
+        Name: <input name="name" value="{{ doc.name }}"><br>
+        Specialization: <input name="spec" value="{{ doc.specialization }}"><br>
+        Availability:
+        <select name="availability">
+            <option value="Available" {% if doc.availability=='Available' %}selected{% endif %}>Available</option>
+            <option value="Unavailable" {% if doc.availability=='Unavailable' %}selected{% endif %}>Unavailable</option>
+        </select><br>
+        <button type="submit">Update</button>
+    </form>
+    <a href="/admin">Back to Dashboard</a>
+</body>
+</html>
